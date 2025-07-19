@@ -27,7 +27,6 @@
         --code-font-size: calc(var(--base-font-size) * 0.8);
         /* 代码块和内联代码字体大小：9.6pt */
         --mermaid-font-size: calc(var(--base-font-size) * 0.8);
-        /* Mermaid 图表字体大小：9.6pt */
 
         /* [经常修改] 字体族，可根据环境调整 */
         --body-font-family: "Source Serif Pro", "Times New Roman", Georgia, serif;
@@ -60,7 +59,7 @@
         /* 节点和连线边框颜色：柔和蓝色 */
         --mermaid-edge-color: #5a9bd4;
         /* 边线颜色：稍深蓝色 */
-        --mermaid-text-color: #333;
+        --mermaid-text-color: #fbfbfb;
         /* 文本颜色：深灰色 */
         --mermaid-highlight-color: #d1e7ff;
         /* 高亮色：浅蓝色高亮 */
@@ -126,6 +125,20 @@
         /* 减去左右边距 1cm */
         --mermaid-max-height: 728pt;
         /* Mermaid 最大高度，可根据内容调整 */
+
+
+        /* Mermaid字体相关 */
+        --mermaid-font-family: var(--header-font-family);
+        --mermaid-font-weight: 500;
+
+        /* Mermaid布局相关 */
+        --mermaid-background: #f8f9fa;
+        --mermaid-border-radius: 8px;
+        --mermaid-accent: #3498db;
+
+        /* 修复stroke-width单位 */
+        --mermaid-stroke-width: 2px;
+        /* 而不是9.6pt */
     }
 
     /* 基础页面样式：防止空白页，优化整体布局 */
@@ -657,114 +670,251 @@
         /* 内联代码稍大一些，约10.1pt */
     }
 
-    /* Mermaid 图表样式：去掉边框，占用更多页面空间 */
+    /* ==========================================================================
+   Mermaid PDF 样式 - 详细注释版
+   专为PDF输出优化，不影响Obsidian正常显示
+   ========================================================================== */
+
+    /* ==========================================================================
+   交互效果样式 - 鼠标悬停高亮
+   ========================================================================== */
+    .mermaid .node:hover rect,
+    /* 矩形节点悬停 */
+    .mermaid .node:hover circle,
+    /* 圆形节点悬停 */
+    .mermaid .node:hover ellipse,
+    /* 椭圆节点悬停 */
+    .mermaid .node:hover polygon {
+        /* 多边形节点悬停 */
+        fill: var(--mermaid-highlight-color) !important;
+        /* 应用高亮背景色，提供视觉反馈 */
+    }
+
+    /* ==========================================================================
+   主容器样式 - 控制整个Mermaid图表的外观和布局
+   ========================================================================== */
     .mermaid {
+        /* ===== 尺寸控制 ===== */
         max-width: var(--content-width) !important;
-        /* 最大宽度适配 A4 页面减去边距 */
+        /* 限制最大宽度，适配A4等标准页面 */
         width: 100% !important;
-        /* 宽度占满容器 */
+        /* 占满可用宽度，保持响应式 */
         height: auto !important;
-        /* 高度自适应 */
+        /* 高度自适应内容 */
+
+        /* ===== 分页控制 - PDF专用属性 ===== */
         page-break-inside: avoid !important;
-        /* 避免图表被分页分割 */
+        /* 避免在元素内部分页 */
         break-inside: avoid !important;
-        /* 现代浏览器分页控制 */
+        /* CSS3分页控制，现代浏览器支持 */
         break-before: auto !important;
-        /* 允许图表前分页 */
+        /* 元素前自动分页 */
         break-after: auto !important;
-        /* 允许图表后分页 */
-        margin: 0 auto !important;
-        /* 居中对齐，自动调整左右边距 */
-        text-align: center !important;
-        /* 居中对齐 */
-        white-space: normal !important;
-        /* 正常换行 */
-        background: var(--mermaid-background-soft) !important;
-        /* 背景色：柔和浅蓝色 */
-        border: none !important;
-        /* 移除边框 */
+        /* 元素后自动分页 */
+
+        /* ===== 布局和间距 ===== */
+        margin: 20px auto !important;
+        /* 上下20px间距，水平居中 */
         padding: var(--mermaid-padding) !important;
-        /* [经常修改] 减少内边距，增加内容占用空间 */
-        box-shadow: var(--shadow-sm), 2px 2px 5px rgba(0, 0, 0, 0.03) !important;
-        /* 保留阴影，增加立体感 */
+        /* 内边距，提供呼吸空间 */
+
+        /* ===== 视觉外观 ===== */
+        background: var(--mermaid-background) !important;
+        /* 背景色，与内容区分 */
+        border: none !important;
+        /* 移除边框，简洁外观 */
+        border-radius: var(--mermaid-border-radius) !important;
+        /* 圆角，现代化外观 */
+
+        /* ===== PDF输出优化 ===== */
+        -webkit-print-color-adjust: exact !important;
+        /* WebKit浏览器：强制打印背景色 */
+        print-color-adjust: exact !important;
+        /* 标准属性：确保PDF颜色准确 */
+
+        /* ===== 其他布局属性 ===== */
+        text-align: center !important;
+        /* 文本居中对齐 */
         position: relative !important;
-        /* 相对定位，用于伪元素 */
+        /* 相对定位，为子元素提供定位上下文 */
         box-sizing: border-box !important;
-        /* 边框和内边距包含在宽度计算中 */
+        /* 边框盒模型，padding包含在宽度内 */
     }
 
-    .mermaid svg {
-        max-width: var(--content-width) !important;
-        /* SVG 最大宽度适配 A4 页面减去边距 */
-        width: 100% !important;
-        /* 宽度占满容器 */
-        height: auto !important;
-        /* 高度自适应 */
-        max-height: var(--mermaid-max-height) !important;
-        /* [可能调整] 最大高度，根据内容调整 */
-        display: block !important;
-        /* 块级显示 */
-        margin: 0 auto !important;
-        /* 水平居中 */
-        background: var(--mermaid-background-soft) !important;
-        border-radius: 2px !important;
-        /* 圆角：8px */
-        transform-origin: center !important;
-        /* 变换中心：居中 */
-        page-break-inside: avoid !important;
-        /* 避免 SVG 被分页分割 */
-        break-inside: avoid !important;
-        /* 现代浏览器分页控制 */
-    }
-
+    /* ===== 首个图表特殊处理 ===== */
     .mermaid:first-child {
         margin-top: 0 !important;
-        /* 第一个 Mermaid 图表移除顶部外边距 */
+        /* 移除顶部间距，避免页面顶部留白过多 */
     }
 
+    /* ===== 最后一个图表特殊处理 ===== */
+    .mermaid:last-child {
+        margin-bottom: 0 !important;
+        /* 移除底部间距，避免页面底部留白过多 */
+    }
+
+    /* ==========================================================================
+   SVG容器样式 - 控制图表核心SVG元素
+   ========================================================================== */
+    .mermaid svg {
+        /* ===== 尺寸约束 ===== */
+        max-width: var(--content-width) !important;
+        /* 继承父容器最大宽度限制 */
+        width: 100% !important;
+        /* 填满父容器宽度 */
+        height: auto !important;
+        /* 高度按比例缩放 */
+        max-height: var(--mermaid-max-height) !important;
+        /* 限制最大高度，防止超出页面 */
+
+        /* ===== 显示和定位 ===== */
+        display: block !important;
+        /* 块级元素，独占一行 */
+        margin: 0 auto !important;
+        /* 水平居中 */
+        background: transparent !important;
+        /* 透明背景，与父容器背景融合 */
+        border-radius: 4px !important;
+        /* 轻微圆角，与整体风格协调 */
+
+        /* ===== PDF渲染优化 ===== */
+        image-rendering: crisp-edges !important;
+        /* 图像清晰渲染，适合图表 */
+        shape-rendering: geometricPrecision !important;
+        /* 几何形状精确渲染 */
+
+        /* ===== 字体设置 ===== */
+        font-family: var(--mermaid-font-family) !important;
+        /* 统一字体族 */
+    }
+
+    /* ==========================================================================
+   节点样式 - 图表中各种形状节点的外观
+   ========================================================================== */
     .mermaid .node rect,
+    /* 矩形节点（最常用） */
     .mermaid .node circle,
+    /* 圆形节点 */
     .mermaid .node ellipse,
-    .mermaid .node polygon {
+    /* 椭圆节点 */
+    .mermaid .node polygon,
+    /* 多边形节点（菱形、六角形等） */
+    .mermaid .node path {
+        /* 自定义路径节点 */
+        /* ===== 填充和边框 ===== */
         fill: var(--mermaid-node-fill) !important;
-        /* 节点填充色：纯白色 */
+        /* 节点填充色 */
         stroke: var(--mermaid-stroke-color) !important;
-        /* 使用统一边框颜色 */
+        /* 边框颜色 */
         stroke-width: var(--mermaid-stroke-width) !important;
-        /* 使用统一边框宽度 */
+        /* 边框宽度 */
+
+        /* ===== 渲染优化 ===== */
+        shape-rendering: geometricPrecision !important;
+        /* 确保形状边缘清晰 */
     }
 
-    .mermaid .edgePath .path {
-        stroke: var(--mermaid-edge-color) !important;
-        /* 使用统一边线颜色 */
-        stroke-width: var(--mermaid-stroke-width) !important;
-        /* 使用统一边框宽度 */
-    }
-
-    .mermaid .edgeLabel {
-        background-color: var(--mermaid-node-fill) !important;
-        /* 边标签背景色：纯白色 */
-        color: var(--mermaid-text-color) !important;
-        /* 边标签文本颜色：深灰色 */
-        font-size: var(--mermaid-font-size) !important;
-        /* 使用统一 Mermaid 字体大小：9.6pt */
-    }
-
+    /* ===== 节点文本标签样式 ===== */
     .mermaid .nodeLabel {
+        /* ===== 文字外观 ===== */
         color: var(--mermaid-text-color) !important;
-        /* 节点标签文本颜色：深灰色 */
+        /* 文字颜色，确保可读性 */
         font-size: var(--mermaid-font-size) !important;
-        /* 使用统一 Mermaid 字体大小：9.6pt */
-        font-weight: 500 !important;
-        /* 字体粗细：中等 */
+        /* 字体大小，平衡可读性和空间 */
+        font-weight: var(--mermaid-font-weight) !important;
+        /* 字体粗细，突出重要性 */
+        font-family: var(--mermaid-font-family) !important;
+        /* 字体族，保持一致性 */
+
+        /* ===== 文字渲染优化 ===== */
+        text-rendering: optimizeLegibility !important;
+        /* 优化文字渲染质量 */
     }
 
-    /* Mermaid 高亮样式 */
-    .mermaid .node:hover rect,
-    .mermaid .node:hover circle,
-    .mermaid .node:hover ellipse,
-    .mermaid .node:hover polygon {
-        fill: var(--mermaid-highlight-color) !important;
-        /* 鼠标悬停高亮 */
+    /* ==========================================================================
+   连接线和箭头样式 - 节点间的连接元素
+   ========================================================================== */
+
+    /* ===== 连接线路径 ===== */
+    .mermaid .edgePath .path {
+        /* ===== 线条外观 ===== */
+        stroke: var(--mermaid-edge-color) !important;
+        /* 线条颜色，与节点协调 */
+        stroke-width: var(--mermaid-stroke-width) !important;
+        /* 线条粗细，保持一致 */
+        fill: none !important;
+        /* 不填充，只显示轮廓 */
+
+        /* ===== 线条端点样式 ===== */
+        stroke-linecap: round !important;
+        /* 圆形线条端点，更美观 */
+        stroke-linejoin: round !important;
+        /* 圆形线条连接点，平滑转角 */
+    }
+
+    /* ===== 箭头标记样式 ===== */
+    .mermaid .arrowheadPath {
+        fill: var(--mermaid-edge-color) !important;
+        /* 箭头填充色，与线条一致 */
+        stroke: var(--mermaid-edge-color) !important;
+        /* 箭头边框色 */
+        stroke-width: 1px !important;
+        /* 箭头边框宽度，细线条 */
+    }
+
+    /* ===== 连接线标签样式 ===== */
+    .mermaid .edgeLabel {
+        /* ===== 背景和文字 ===== */
+        background-color: var(--mermaid-node-fill) !important;
+        /* 背景色，确保文字可读 */
+        color: var(--mermaid-text-color) !important;
+        /* 文字颜色 */
+        font-size: var(--mermaid-font-size) !important;
+        /* 字体大小 */
+        font-family: var(--mermaid-font-family) !important;
+        /* 字体族 */
+
+        /* ===== 边框和形状 ===== */
+        border: 1px solid var(--mermaid-stroke-color) !important;
+        /* 细边框，定义边界 */
+        border-radius: 4px !important;
+        /* 圆角，柔和外观 */
+        padding: 2px 6px !important;
+        /* 内边距，文字呼吸空间 */
+    }
+
+    /* ==========================================================================
+   特殊图表类型样式 - 不同Mermaid图表的专用样式
+   ========================================================================== */
+
+    /* ===== 流程图连接线 ===== */
+    .mermaid .flowchart-link {
+        stroke: var(--mermaid-edge-color) !important;
+        /* 流程图专用连接线颜色 */
+        stroke-width: var(--mermaid-stroke-width) !important;
+        /* 保持统一线条宽度 */
+    }
+
+    /* ===== 甘特图分区样式 ===== */
+    .mermaid .section0,
+    /* 甘特图第1分区 */
+    .mermaid .section1,
+    /* 甘特图第2分区 */
+    .mermaid .section2,
+    /* 甘特图第3分区 */
+    .mermaid .section3 {
+        /* 甘特图第4分区 */
+        fill: var(--mermaid-accent) !important;
+        /* 使用强调色填充 */
+        opacity: 0.8 !important;
+        /* 半透明效果，层次感 */
+    }
+
+    /* ===== 时序图参与者样式 ===== */
+    .mermaid .actor {
+        fill: var(--mermaid-node-fill) !important;
+        /* 参与者背景填充 */
+        stroke: var(--mermaid-stroke-color) !important;
+        /* 参与者边框颜色 */
     }
 }
