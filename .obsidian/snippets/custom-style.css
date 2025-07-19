@@ -37,7 +37,7 @@
         --code-font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
         /* 代码字体：优先使用等宽字体，适合代码显示 */
 
-        /* [经常修改] 标题和 Mermaid 颜色 */
+        /* [经常修改] 标题颜色 */
         --text-title-h1: #cc241d;
         /* 一级标题颜色：红色 */
         --text-title-h2: #d65d0e;
@@ -50,10 +50,24 @@
         /* 五级标题颜色：青色 */
         --text-title-h6: #b16286;
         /* 六级标题颜色：紫红色 */
-        --mermaid-stroke-color: var(--text-title-h5);
-        /* Mermaid 节点和连线边框颜色 */
-        --mermaid-background: #458588;
-        /* Mermaid 背景色 */
+
+        /* [经常修改] Mermaid 主题颜色 - 默认 Light 主题 */
+        --mermaid-background-soft: #e6f0fa;
+        /* 背景色：浅蓝色 */
+        --mermaid-node-fill: #ffffff;
+        /* 节点填充色：纯白色 */
+        --mermaid-stroke-color: #4a90e2;
+        /* 节点和连线边框颜色：柔和蓝色 */
+        --mermaid-edge-color: #5a9bd4;
+        /* 边线颜色：稍深蓝色 */
+        --mermaid-text-color: #333;
+        /* 文本颜色：深灰色 */
+        --mermaid-highlight-color: #d1e7ff;
+        /* 高亮色：浅蓝色高亮 */
+
+        /* [经常修改] PDF 背景色 */
+        --pdf-background-color: #00f5f5;
+        /* 设置为浅青色背景 */
 
         /* [经常修改] One Dark 配色方案，用于代码块语法高亮 */
         --print-codeblock-color: #ffffff;
@@ -129,8 +143,8 @@
         /* 移除正文外边距 */
         padding: 0 !important;
         /* 移除正文内边距 */
-        background: white !important;
-        /* 设置背景为白色，适合打印 */
+        background: blueviolet !important;
+        /* [经常修改] 强制设置 PDF 背景色 */
         font-size: var(--base-font-size) !important;
         /* 使用全局字体大小变量：12pt */
         line-height: var(--body-line-height) !important;
@@ -145,6 +159,10 @@
         /* 正文颜色：深灰色 */
         tab-size: 2 !important;
         /* 设置 Tab 缩进为 2 个字符 */
+        -webkit-print-color-adjust: exact !important;
+        /* 强制打印背景色 */
+        print-color-adjust: exact !important;
+        /* 强制打印背景色 */
         page-break-before: avoid !important;
         /* 避免正文前分页 */
     }
@@ -661,8 +679,8 @@
         /* 居中对齐 */
         white-space: normal !important;
         /* 正常换行 */
-        background: var(--mermaid-background) !important;
-        /* 背景色：青色 */
+        background: var(--mermaid-background-soft) !important;
+        /* 背景色：柔和浅蓝色 */
         border: none !important;
         /* 移除边框 */
         padding: var(--mermaid-padding) !important;
@@ -688,7 +706,7 @@
         /* 块级显示 */
         margin: 0 auto !important;
         /* 水平居中 */
-        background: var(--mermaid-background) !important;
+        background: var(--mermaid-background-soft) !important;
         border-radius: 2px !important;
         /* 圆角：8px */
         transform-origin: center !important;
@@ -708,8 +726,8 @@
     .mermaid .node circle,
     .mermaid .node ellipse,
     .mermaid .node polygon {
-        fill: #f8f9fa !important;
-        /* 节点填充色：浅灰色 */
+        fill: var(--mermaid-node-fill) !important;
+        /* 节点填充色：纯白色 */
         stroke: var(--mermaid-stroke-color) !important;
         /* 使用统一边框颜色 */
         stroke-width: var(--mermaid-stroke-width) !important;
@@ -717,27 +735,36 @@
     }
 
     .mermaid .edgePath .path {
-        stroke: var(--mermaid-stroke-color) !important;
-        /* 使用统一边框颜色 */
+        stroke: var(--mermaid-edge-color) !important;
+        /* 使用统一边线颜色 */
         stroke-width: var(--mermaid-stroke-width) !important;
         /* 使用统一边框宽度 */
     }
 
     .mermaid .edgeLabel {
-        background-color: white !important;
-        /* 边标签背景色：白色 */
-        color: #333 !important;
+        background-color: var(--mermaid-node-fill) !important;
+        /* 边标签背景色：纯白色 */
+        color: var(--mermaid-text-color) !important;
         /* 边标签文本颜色：深灰色 */
         font-size: var(--mermaid-font-size) !important;
         /* 使用统一 Mermaid 字体大小：9.6pt */
     }
 
     .mermaid .nodeLabel {
-        color: #333 !important;
+        color: var(--mermaid-text-color) !important;
         /* 节点标签文本颜色：深灰色 */
         font-size: var(--mermaid-font-size) !important;
         /* 使用统一 Mermaid 字体大小：9.6pt */
         font-weight: 500 !important;
         /* 字体粗细：中等 */
+    }
+
+    /* Mermaid 高亮样式 */
+    .mermaid .node:hover rect,
+    .mermaid .node:hover circle,
+    .mermaid .node:hover ellipse,
+    .mermaid .node:hover polygon {
+        fill: var(--mermaid-highlight-color) !important;
+        /* 鼠标悬停高亮 */
     }
 }
