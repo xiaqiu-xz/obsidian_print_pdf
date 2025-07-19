@@ -503,21 +503,17 @@
     }
 
     /* 数学公式：$formula$ 或 $$formula$$ */
-    /* .math, */
-    /* .MathJax, */
-    /* .mjx-math, */
+    /* 数学公式：最小化样式 */
+    .math,
+    .MathJax,
+    .mjx-math,
     [class*="math"] {
-        background: var(--math-bg) !important;
-        border: 1px solid var(--math-border) !important;
-        color: var(--math-text) !important;
-        padding: 0.1em 0.2em !important;
-        /* 从 0.2em 0.4em 改小 */
-        border-radius: 2px !important;
-        /* 从 4px 改小 */
+        color: #1976d2 !important;
+        /* 只改变颜色 */
         font-size: var(--math-font-size) !important;
-        margin: 0.05em 0.1em !important;
-        /* 从 0.1em 0.2em 改小 */
-        display: inline-block !important;
+        margin: 0 0.05em !important;
+        /* 极小的间距 */
+        display: inline !important;
     }
 
     /* 块级数学公式 */
