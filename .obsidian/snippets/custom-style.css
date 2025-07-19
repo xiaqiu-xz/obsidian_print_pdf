@@ -1,0 +1,743 @@
+@media print {
+
+    /* 页面设置：定义打印页面的大小和边距 */
+    @page {
+        size: A4;
+        /* 设置页面为 A4 大小，适合标准打印 */
+        margin: var(--page-margin-vertical) var(--page-margin-horizontal);
+        /* [经常修改] 设置页面边距，使用变量控制 */
+    }
+
+    /* 修复空白页：调整第一页的顶部边距，防止多余空白 */
+    @page :first {
+        margin-top: var(--page-first-margin-top);
+        /* [经常修改] 第一页顶部边距，确保内容紧凑 */
+    }
+
+    /* CSS 变量：定义全局可复用的样式变量 */
+    :root {
+        /* [经常修改] 页面边距和相关设置 */
+        --page-margin-vertical: 1.5cm;
+        --page-margin-horizontal: 1cm;
+        --page-first-margin-top: 1cm;
+
+        /* [经常修改] 全局字体大小变量 */
+        --base-font-size: 12pt;
+        /* 基础字体大小，确保正文清晰可读 */
+        --code-font-size: calc(var(--base-font-size) * 0.8);
+        /* 代码块和内联代码字体大小：9.6pt */
+        --mermaid-font-size: calc(var(--base-font-size) * 0.8);
+        /* Mermaid 图表字体大小：9.6pt */
+
+        /* [经常修改] 字体族，可根据环境调整 */
+        --body-font-family: "Source Serif Pro", "Times New Roman", Georgia, serif;
+        /* 正文字体：系统字体优先，支持多种备选字体 */
+        --header-font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        /* 标题字体：与正文一致 */
+        --code-font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+        /* 代码字体：优先使用等宽字体，适合代码显示 */
+
+        /* [经常修改] 标题和 Mermaid 颜色 */
+        --text-title-h1: #cc241d;
+        /* 一级标题颜色：红色 */
+        --text-title-h2: #d65d0e;
+        /* 二级标题颜色：橙色 */
+        --text-title-h3: #d79921;
+        /* 三级标题颜色：黄色 */
+        --text-title-h4: #689d6a;
+        /* 四级标题颜色：绿色 */
+        --text-title-h5: #458588;
+        /* 五级标题颜色：青色 */
+        --text-title-h6: #b16286;
+        /* 六级标题颜色：紫红色 */
+        --mermaid-stroke-color: var(--text-title-h5);
+        /* Mermaid 节点和连线边框颜色 */
+        --mermaid-background: #458588;
+        /* Mermaid 背景色 */
+
+        /* [经常修改] One Dark 配色方案，用于代码块语法高亮 */
+        --print-codeblock-color: #ffffff;
+        /* 代码块主要文本颜色：白色 */
+        --print-code-background: #282c34;
+        /* 代码块背景色：One Dark 黑色 */
+        --print-code-punctuation: #abb2bf;
+        /* 标点符号颜色：浅灰色 */
+        --print-code-function: #61afef;
+        /* 函数名颜色：蓝色 */
+        --print-code-keyword: #c678dd;
+        /* 关键字颜色：紫色 */
+        --print-code-operator: #abb2bf;
+        /* 运算符颜色：浅灰色 */
+        --print-code-string: #98c379;
+        /* 字符串颜色：绿色 */
+        --print-code-number: #d19a66;
+        /* 数字颜色：橙色 */
+        --print-code-comment: #0CA523;
+        /* 注释颜色：绿色 */
+        --print-code-tag: #e06c75;
+        /* 标签颜色：红色/粉色 */
+        --print-code-attr-name: #d19a66;
+        /* 属性名颜色：橙色 */
+
+        /* [经常修改] 间距和排版相关 */
+        --body-line-height: 1.3;
+        /* 行高，优化阅读体验 */
+        --body-word-spacing: 0.8pt;
+        /* 单词间距，增强可读性 */
+        --body-letter-spacing: 0.1pt;
+        /* 字符间距，微调排版 */
+        --paragraph-margin-top: 0.15em;
+        /* 段落顶部外边距 */
+        --paragraph-margin-bottom: 0.6em;
+        /* 段落底部外边距 */
+        --heading-margin-top: 1em;
+        /* 标题顶部外边距 */
+        --heading-margin-bottom: 0.5em;
+        /* 标题底部外边距 */
+        --code-block-padding: 0.4em;
+        /* 代码块内边距 */
+        --mermaid-padding: 0.5em;
+        /* Mermaid 图表内边距 */
+
+        /* [可能调整] 边框和阴影 */
+        --border-color: #e1e4e8;
+        /* 边框颜色：浅灰色 */
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+        /* 小阴影：细微立体效果 */
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        /* 大阴影：明显立体效果 */
+        --page-width: 21cm;
+        /* A4 宽度 */
+        --content-width: calc(var(--page-width) - 2cm);
+        /* 减去左右边距 1cm */
+        --mermaid-max-height: 728pt;
+        /* Mermaid 最大高度，可根据内容调整 */
+    }
+
+    /* 基础页面样式：防止空白页，优化整体布局 */
+    html {
+        margin: 0 !important;
+        /* 移除 HTML 元素的默认外边距 */
+        padding: 0 !important;
+        /* 移除 HTML 元素的默认内边距 */
+    }
+
+    body {
+        width: 100% !important;
+        /* 确保正文宽度占满页面 */
+        margin: 0 !important;
+        /* 移除正文外边距 */
+        padding: 0 !important;
+        /* 移除正文内边距 */
+        background: white !important;
+        /* 设置背景为白色，适合打印 */
+        font-size: var(--base-font-size) !important;
+        /* 使用全局字体大小变量：12pt */
+        line-height: var(--body-line-height) !important;
+        /* [经常修改] 设置行高，优化阅读体验 */
+        word-spacing: var(--body-word-spacing) !important;
+        /* [经常修改] 单词间距，增强可读性 */
+        letter-spacing: var(--body-letter-spacing) !important;
+        /* [经常修改] 字符间距，微调排版 */
+        font-family: var(--body-font-family) !important;
+        /* 使用正文字体 */
+        color: #333 !important;
+        /* 正文颜色：深灰色 */
+        tab-size: 2 !important;
+        /* 设置 Tab 缩进为 2 个字符 */
+        page-break-before: avoid !important;
+        /* 避免正文前分页 */
+    }
+
+    /* 显式设置正文相关元素的字体大小，确保一致性 */
+    .markdown-preview-view p,
+    .markdown-rendered p,
+    .print p,
+    .markdown-preview-view ul,
+    .markdown-rendered ul,
+    .print ul,
+    .markdown-preview-view ol,
+    .markdown-rendered ol,
+    .print ol,
+    .markdown-preview-view li,
+    .markdown-rendered li,
+    .print li,
+    .markdown-preview-view table,
+    .markdown-rendered table,
+    .print table,
+    .markdown-preview-view th,
+    .markdown-rendered th,
+    .print th,
+    .markdown-preview-view td,
+    .markdown-rendered td,
+    .print td,
+    .markdown-preview-view figcaption,
+    .markdown-rendered figcaption,
+    .print figcaption,
+    .markdown-preview-view div,
+    .markdown-rendered div,
+    .print div,
+    .markdown-preview-view span,
+    .markdown-rendered span,
+    .print span {
+        font-size: var(--base-font-size) !important;
+        /* 正文、列表、表格、图片标题等字体大小统一为 12pt */
+    }
+
+    /* 数学公式字体大小（MathJax 渲染） */
+    .markdown-preview-view .math,
+    .markdown-rendered .math,
+    .print .math,
+    .markdown-preview-view .MathJax,
+    .markdown-rendered .MathJax,
+    .print .MathJax,
+    .markdown-preview-view .mjx-math,
+    .markdown-rendered .mjx-math,
+    .print .mjx-math {
+        font-size: var(--base-font-size) !important;
+        /* 数学公式字体大小统一为 12pt */
+    }
+
+    /* 文档容器修复：确保 Markdown 预览和打印视图无多余边距 */
+    .markdown-preview-view,
+    .markdown-rendered,
+    .print {
+        margin: 0 !important;
+        /* 移除外边距 */
+        padding: 0 !important;
+        /* 移除内边距 */
+        page-break-before: avoid !important;
+        /* 避免容器前分页 */
+    }
+
+    /* 段落样式：优化段落排版 */
+    p {
+        margin-top: var(--paragraph-margin-top) !important;
+        /* [经常修改] 段落顶部外边距，减少空白 */
+        margin-bottom: var(--paragraph-margin-bottom) !important;
+        /* [经常修改] 段落底部外边距，保持间距 */
+        text-align: justify !important;
+        /* 两端对齐，提升排版美观 */
+        orphans: 2 !important;
+        /* 至少保留 2 行在页面底部，防止孤行 */
+        widows: 2 !important;
+        /* 至少保留 2 行在页面顶部，防止孤行 */
+    }
+
+    /* 第一个元素调整：确保页面顶部无多余空白 */
+    body>*:first-child,
+    .markdown-preview-view>*:first-child,
+    .markdown-rendered>*:first-child,
+    .print>*:first-child {
+        margin-top: 0 !important;
+        /* 移除第一个元素的顶部外边距 */
+        page-break-before: avoid !important;
+        /* 避免第一个元素前分页 */
+    }
+
+    /* 分页控制：防止特定元素在页面中被分割 */
+    .image-embed,
+    img,
+    blockquote,
+    table,
+    pre,
+    .callout,
+    li:not(:empty) {
+        page-break-inside: avoid !important;
+        /* 避免这些元素在页面内部分割 */
+    }
+
+    li:empty {
+        page-break-before: avoid !important;
+        /* 空列表项避免前分页 */
+        page-break-after: auto !important;
+        /* 空列表项允许后分页 */
+    }
+
+    /* 标题样式：优化分页和视觉效果 */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--header-font-family) !important;
+        /* 使用标题字体 */
+        page-break-before: auto !important;
+        /* 允许标题前分页 */
+        page-break-after: avoid !important;
+        /* 避免标题后立即分页 */
+        page-break-inside: avoid !important;
+        /* 避免标题内容被分割 */
+        break-after: avoid !important;
+        /* 现代浏览器分页控制：避免标题后分页 */
+        break-inside: avoid !important;
+        /* 现代浏览器分页控制：避免标题内部分割 */
+        font-weight: 600 !important;
+        /* 标题字体加粗 */
+        margin-top: var(--heading-margin-top) !important;
+        /* [经常修改] 标题顶部外边距 */
+        margin-bottom: var(--heading-margin-bottom) !important;
+        /* [经常修改] 标题底部外边距 */
+        orphans: 3 !important;
+        /* 至少保留 3 行在页面底部 */
+        widows: 3 !important;
+        /* 至少保留 3 行在页面顶部 */
+    }
+
+    /* 第一个标题调整：确保页面顶部标题无多余空白 */
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child,
+    h5:first-child,
+    h6:first-child {
+        margin-top: 0 !important;
+        /* 移除第一个标题的顶部外边距 */
+        page-break-before: avoid !important;
+        /* 避免第一个标题前分页 */
+    }
+
+    h1 {
+        font-size: 24pt !important;
+        border-bottom: 3px solid #007acc !important;
+        padding-bottom: 0.5em !important;
+        margin-bottom: var(--heading-margin-bottom) !important;
+    }
+
+    h1:first-child {
+        margin-top: 0 !important;
+        /* 第一个一级标题移除顶部外边距 */
+    }
+
+    h1 a.internal-link,
+    h1 code {
+        color: #000000 !important;
+        /* 一级标题中的链接和代码颜色与标题一致 */
+    }
+
+    /* 重新设置 h2 样式：使用新的渐变背景和固定 em 单位字体大小 */
+    h2 {
+        font-size: 1.8em !important;
+        /* [经常修改] 二级标题字体大小：1.8em（约 21.6pt） */
+        color: var(--text-title-h2) !important;
+        /* 使用定义的二级标题颜色 */
+        border-bottom: 2px solid var(--text-title-h2) !important;
+        /* 底部边框：2px 实线 */
+        padding-bottom: 0.2em !important;
+        /* 底部内边距 */
+        background: linear-gradient(90deg, #f1c40f, #f39c12) !important;
+        /* [经常修改] 渐变从黄色到橙色 */
+        background-size: 100% 1px !important;
+        /* 渐变线高度为 1px */
+        background-repeat: no-repeat !important;
+        /* 防止渐变线重复 */
+        background-position: bottom !important;
+        /* 渐变线位于标题底部 */
+    }
+
+    h2 a.internal-link,
+    h2 code {
+        color: var(--text-title-h2) !important;
+        /* 二级标题中的链接和代码颜色与标题一致 */
+    }
+
+    /* 重新设置 h3 样式：使用新的渐变背景和固定 em 单位字体大小 */
+    h3 {
+        font-size: 1.6em !important;
+        /* [经常修改] 三级标题字体大小：1.6em（约 19.2pt） */
+        color: var(--text-title-h3) !important;
+        /* 使用定义的三级标题颜色 */
+        border-left: 4px solid var(--text-title-h3) !important;
+        /* 左侧边框：4px 实线 */
+        padding-left: 0.4em !important;
+        /* 左侧内边距 */
+        background: linear-gradient(90deg, var(--text-title-h3), #9b59b6) !important;
+        /* [经常修改] 渐变从紫色到深紫色 */
+        background-size: 100% 1px !important;
+        /* 渐变线高度为 1px */
+        background-repeat: no-repeat !important;
+        /* 防止渐变线重复 */
+        background-position: bottom !important;
+        /* 渐变线位于标题底部 */
+    }
+
+    h3 a.internal-link,
+    h3 code {
+        color: var(--text-title-h3) !important;
+        /* 三级标题中的链接和代码颜色与标题一致 */
+    }
+
+    h4 {
+        font-size: 1.4em !important;
+        /* [经常修改] 四级标题字体大小：1.4em（约 16.8pt） */
+        color: var(--text-title-h4) !important;
+        /* 使用定义的四级标题颜色 */
+    }
+
+    h4 a.internal-link,
+    h4 code {
+        color: var(--text-title-h4) !important;
+        /* 四级标题中的链接和代码颜色与标题一致 */
+    }
+
+    h5 {
+        font-size: 1.2em !important;
+        /* [经常修改] 五级标题字体大小：1.2em（约 14.4pt） */
+        color: var(--text-title-h5) !important;
+        /* 使用定义的五级标题颜色 */
+    }
+
+    h5 a.internal-link,
+    h5 code {
+        color: var(--text-title-h5) !important;
+        /* 五级标题中的链接和代码颜色与标题一致 */
+    }
+
+    h6 {
+        font-size: 1.0em !important;
+        /* [经常修改] 六级标题字体大小：1.0em（约 12pt） */
+        color: var(--text-title-h6) !important;
+        /* 使用定义的六级标题颜色 */
+    }
+
+    h6 a.internal-link,
+    h6 code {
+        color: var(--text-title-h6) !important;
+        /* 六级标题中的链接和代码颜色与标题一致 */
+    }
+
+    /* 代码块样式：调整字体大小和块尺寸 */
+    .markdown-preview-view pre,
+    .markdown-rendered pre,
+    .print pre,
+    pre {
+        background: var(--print-code-background) !important;
+        /* 背景色：One Dark 黑色 */
+        border: 1px solid var(--border-color) !important;
+        /* 边框：1px 浅灰色 */
+        border-radius: 6px !important;
+        /* 圆角：6px */
+        margin: 0 auto !important;
+        /* 居中对齐，自动调整左右边距 */
+        padding: var(--code-block-padding) !important;
+        /* [经常修改] 内边距，减少空白 */
+        max-width: var(--content-width) !important;
+        /* 最大宽度适配 A4 页面减去边距 */
+        width: 100% !important;
+        /* 占满容器宽度 */
+        overflow-x: auto !important;
+        /* 水平溢出时显示滚动条 */
+        box-shadow: var(--shadow-sm), inset 0 -1px 3px rgba(0, 0, 0, 0.02) !important;
+        /* 添加小阴影，增加立体感 */
+        position: relative !important;
+        /* 相对定位，用于伪元素 */
+        page-break-inside: avoid !important;
+        /* 避免代码块被分页分割 */
+        break-inside: avoid !important;
+        /* 现代浏览器分页控制 */
+        box-decoration-break: clone !important;
+        /* 跨页时保持边框和填充样式 */
+        color: var(--print-codeblock-color) !important;
+        /* 前景色：白色 */
+    }
+
+    .markdown-preview-view pre::before,
+    .markdown-rendered pre::before,
+    .print pre::before,
+    pre::before {
+        content: "代码";
+        /* 代码块标签内容 */
+        position: absolute;
+        /* 绝对定位，位于右上角 */
+        top: 0;
+        /* 顶部对齐 */
+        right: 0;
+        /* 右边对齐 */
+        background: var(--text-title-h4) !important;
+        /* 背景色：四级标题颜色绿色，增强对比 */
+        color: white !important;
+        /* 文本颜色：白色 */
+        padding: 0.2em 0.5em !important;
+        /* 内边距 */
+        font-size: var(--code-font-size) !important;
+        /* 使用统一代码字体大小：9.6pt */
+        border-radius: 0 8px 0 4px !important;
+        /* 圆角：右上和左下 */
+        font-family: var(--header-font-family) !important;
+        /* 使用标题字体 */
+        letter-spacing: 0.05em !important;
+        /* 字符间距 */
+        font-weight: 600 !important;
+        /* 字体加粗 */
+    }
+
+    /* 代码块延续处理 */
+    .markdown-preview-view pre,
+    .markdown-rendered pre,
+    .print pre {
+        position: relative !important;
+        /* 相对定位，保持伪元素定位基础 */
+    }
+
+    .markdown-preview-view pre:not(:first-child),
+    .markdown-rendered pre:not(:first-child),
+    .print pre:not(:first-child) {
+        margin-top: 0.5em !important;
+        /* 非首个代码块顶部外边距减少至 0.5em */
+    }
+
+    .markdown-preview-view pre::after,
+    .markdown-rendered pre::after,
+    .print pre::after {
+        content: "";
+        /* 延续线：默认空内容 */
+        position: absolute;
+        /* 绝对定位，位于底部 */
+        bottom: -10px;
+        /* 底部偏移 */
+        left: 0;
+        /* 左对齐 */
+        width: 100%;
+        /* 宽度占满 */
+        height: 1px;
+        /* 线条高度 */
+        background: dotted var(--border-color) !important;
+        /* 虚线边框颜色 */
+        display: none;
+        /* 默认隐藏 */
+    }
+
+    .markdown-preview-view pre.page-break,
+    .markdown-rendered pre.page-break,
+    .print pre.page-break {
+        box-shadow: none !important;
+        /* 分页时移除阴影 */
+    }
+
+    .markdown-preview-view pre.page-break::before,
+    .markdown-rendered pre.page-break::before,
+    .print pre.page-break::before {
+        content: "代码 (续)";
+        /* 分页代码块标签：显示“代码 (续)” */
+    }
+
+    .markdown-preview-view pre.page-break::after,
+    .markdown-rendered pre.page-break::after,
+    .print pre.page-break::after {
+        display: block !important;
+        /* 分页时显示延续线 */
+    }
+
+    /* 代码块子元素样式：应用语法高亮 */
+    .markdown-preview-view pre code,
+    .markdown-rendered pre code,
+    .print pre code,
+    pre code {
+        color: var(--print-codeblock-color) !important;
+        /* 默认文本颜色：白色 */
+        background: transparent !important;
+        /* 背景透明 */
+        padding: 0.1em 0.2em !important;
+        /* [经常修改] 内边距减少至 0.2em */
+        border-radius: 6px !important;
+        /* 圆角 */
+        font-family: var(--code-font-family) !important;
+        /* 使用代码字体 */
+        font-size: var(--code-font-size) !important;
+        /* 使用统一代码字体大小：9.6pt */
+        word-break: break-word !important;
+        /* 单词断行 */
+        overflow-wrap: break-word !important;
+        /* 溢出换行 */
+    }
+
+    /* 强制应用语法高亮颜色 */
+    .markdown-preview-view pre code .token.punctuation,
+    .markdown-rendered pre code .token.punctuation,
+    .print pre code .token.punctuation {
+        color: var(--print-code-punctuation) !important;
+        /* 标点符号：浅灰色 */
+    }
+
+    .markdown-preview-view pre code .token.function,
+    .markdown-rendered pre code .token.function,
+    .print pre code .token.function {
+        color: var(--print-code-function) !important;
+        /* 函数名：蓝色 */
+    }
+
+    .markdown-preview-view pre code .token.keyword,
+    .markdown-rendered pre code .token.keyword,
+    .print pre code .token.keyword {
+        color: var(--print-code-keyword) !important;
+        /* 关键字：紫色 */
+    }
+
+    .markdown-preview-view pre code .token.operator,
+    .markdown-rendered pre code .token.operator,
+    .print pre code .token.operator {
+        color: var(--print-code-operator) !important;
+        /* 运算符：浅灰色 */
+    }
+
+    .markdown-preview-view pre code .token.string,
+    .markdown-rendered pre code .token.string,
+    .print pre code .token.string {
+        color: var(--print-code-string) !important;
+        /* 字符串：绿色 */
+    }
+
+    .markdown-preview-view pre code .token.number,
+    .markdown-rendered pre code .token.number,
+    .print pre code .token.number {
+        color: var(--print-code-number) !important;
+        /* 数字：橙色 */
+    }
+
+    .markdown-preview-view pre code .token.comment,
+    .markdown-rendered pre code .token.comment,
+    .print pre code .token.comment {
+        color: var(--print-code-comment) !important;
+        /* 注释：绿色 */
+    }
+
+    .markdown-preview-view pre code .token.tag,
+    .markdown-rendered pre code .token.tag,
+    .print pre code .token.tag {
+        color: var(--print-code-tag) !important;
+        /* 标签：红色/粉色 */
+    }
+
+    .markdown-preview-view pre code .token.attr-name,
+    .markdown-rendered pre code .token.attr-name,
+    .print pre code .token.attr-name {
+        color: var(--print-code-attr-name) !important;
+        /* 属性名：橙色 */
+    }
+
+    /* 强制所有代码块子元素使用统一字体大小 */
+    .markdown-preview-view pre code *,
+    .markdown-rendered pre code *,
+    .print pre code *,
+    pre code * {
+        font-size: var(--code-font-size) !important;
+        /* 确保所有子元素（包括参数、关键字等）缩放到 9.6pt */
+    }
+
+    /* 内联代码样式优化 */
+    .markdown-preview-view :not(pre)>code,
+    .markdown-rendered :not(pre)>code,
+    .print :not(pre)>code {
+        background: rgba(175, 184, 193, 0.15) !important;
+        /* 内联代码背景：浅灰色半透明 */
+        padding: 0.1em 0.3em !important;
+        /* 内边距：垂直0.1em，水平0.3em */
+        border-radius: 3px !important;
+        /* 圆角：3px */
+        font-size: calc(var(--code-font-size) + 0.5pt) !important;
+        /* 内联代码稍大一些，约10.1pt */
+    }
+
+    /* Mermaid 图表样式：去掉边框，占用更多页面空间 */
+    .mermaid {
+        max-width: var(--content-width) !important;
+        /* 最大宽度适配 A4 页面减去边距 */
+        width: 100% !important;
+        /* 宽度占满容器 */
+        height: auto !important;
+        /* 高度自适应 */
+        page-break-inside: avoid !important;
+        /* 避免图表被分页分割 */
+        break-inside: avoid !important;
+        /* 现代浏览器分页控制 */
+        break-before: auto !important;
+        /* 允许图表前分页 */
+        break-after: auto !important;
+        /* 允许图表后分页 */
+        margin: 0 auto !important;
+        /* 居中对齐，自动调整左右边距 */
+        text-align: center !important;
+        /* 居中对齐 */
+        white-space: normal !important;
+        /* 正常换行 */
+        background: var(--mermaid-background) !important;
+        /* 背景色：青色 */
+        border: none !important;
+        /* 移除边框 */
+        padding: var(--mermaid-padding) !important;
+        /* [经常修改] 减少内边距，增加内容占用空间 */
+        box-shadow: var(--shadow-sm), 2px 2px 5px rgba(0, 0, 0, 0.03) !important;
+        /* 保留阴影，增加立体感 */
+        position: relative !important;
+        /* 相对定位，用于伪元素 */
+        box-sizing: border-box !important;
+        /* 边框和内边距包含在宽度计算中 */
+    }
+
+    .mermaid svg {
+        max-width: var(--content-width) !important;
+        /* SVG 最大宽度适配 A4 页面减去边距 */
+        width: 100% !important;
+        /* 宽度占满容器 */
+        height: auto !important;
+        /* 高度自适应 */
+        max-height: var(--mermaid-max-height) !important;
+        /* [可能调整] 最大高度，根据内容调整 */
+        display: block !important;
+        /* 块级显示 */
+        margin: 0 auto !important;
+        /* 水平居中 */
+        background: var(--mermaid-background) !important;
+        border-radius: 2px !important;
+        /* 圆角：8px */
+        transform-origin: center !important;
+        /* 变换中心：居中 */
+        page-break-inside: avoid !important;
+        /* 避免 SVG 被分页分割 */
+        break-inside: avoid !important;
+        /* 现代浏览器分页控制 */
+    }
+
+    .mermaid:first-child {
+        margin-top: 0 !important;
+        /* 第一个 Mermaid 图表移除顶部外边距 */
+    }
+
+    .mermaid .node rect,
+    .mermaid .node circle,
+    .mermaid .node ellipse,
+    .mermaid .node polygon {
+        fill: #f8f9fa !important;
+        /* 节点填充色：浅灰色 */
+        stroke: var(--mermaid-stroke-color) !important;
+        /* 使用统一边框颜色 */
+        stroke-width: var(--mermaid-stroke-width) !important;
+        /* 使用统一边框宽度 */
+    }
+
+    .mermaid .edgePath .path {
+        stroke: var(--mermaid-stroke-color) !important;
+        /* 使用统一边框颜色 */
+        stroke-width: var(--mermaid-stroke-width) !important;
+        /* 使用统一边框宽度 */
+    }
+
+    .mermaid .edgeLabel {
+        background-color: white !important;
+        /* 边标签背景色：白色 */
+        color: #333 !important;
+        /* 边标签文本颜色：深灰色 */
+        font-size: var(--mermaid-font-size) !important;
+        /* 使用统一 Mermaid 字体大小：9.6pt */
+    }
+
+    .mermaid .nodeLabel {
+        color: #333 !important;
+        /* 节点标签文本颜色：深灰色 */
+        font-size: var(--mermaid-font-size) !important;
+        /* 使用统一 Mermaid 字体大小：9.6pt */
+        font-weight: 500 !important;
+        /* 字体粗细：中等 */
+    }
+}
