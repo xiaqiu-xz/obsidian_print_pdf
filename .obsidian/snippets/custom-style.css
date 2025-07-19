@@ -481,25 +481,126 @@
         color: var(--text-title-h6) !important;
     }
 
-    /* ==========================================================================
-       代码块样式系统：优化代码显示和语法高亮
-       ========================================================================== */
-
-
-    /* 反引号包围的内联代码：`code` - 降低高度 */
+    /* 内联代码对齐优化版本 */
     code:not(pre code) {
         background: var(--inline-code-bg) !important;
-        border: 1px solid var(--inline-code-border) !important;
+        border: none !important;
         color: var(--inline-code-text) !important;
-        padding: 0.1em 0.4em !important;
-        border-radius: 1px !important;
-        font-size: var(--inline-code-font-size) !important;
+        padding: 0.08em 0.4em !important;
+        border-radius: 3px !important;
+
+        /* 字体设置 */
+        font-size: 10pt !important;
         font-family: var(--code-font-family) !important;
         font-weight: 500 !important;
-        line-height: 1 !important;
-        /* 新增：控制行高 */
+
+        /* 对齐优化 - 关键修改 */
+        line-height: 0.9 !important;
+        /* 进一步减少行高，避免遮挡下划线 */
         vertical-align: baseline !important;
-        /* 新增：垂直对齐 */
+        /* 改为基线对齐，与文本自然对齐 */
+        position: relative !important;
+        top: 0.05em !important;
+        /* 轻微向下调整，避免遮挡下划线 */
+
+        /* 或者使用渐变背景，避免完全遮挡 */
+        background-clip: padding-box !important;
+        /* 背景只在padding区域显示 */
+
+        /* 可选的替代方案 */
+        /* vertical-align: middle !important; */
+        /* 如果基线对齐还是不理想，可以试试居中对齐 */
+        /* top: 0 !important; */
+        /* 如果不需要微调，可以设为0 */
+    }
+
+
+    /* 如果还需要更精细的调整，可以根据不同上下文分别设置 */
+
+    /* 在段落中的内联代码 */
+    p code:not(pre code) {
+        vertical-align: baseline !important;
+        top: -0.02em !important;
+        /* 段落中稍微向上一点点 */
+    }
+
+    /* 在列表中的内联代码 */
+    li code:not(pre code) {
+        vertical-align: baseline !important;
+        top: 0 !important;
+        /* 列表中不需要偏移 */
+    }
+
+    /* 在标题中的内联代码保持原有设置 */
+    h1 code:not(pre code),
+    h2 code:not(pre code),
+    h3 code:not(pre code),
+    h4 code:not(pre code),
+    h5 code:not(pre code),
+    h6 code:not(pre code) {
+        vertical-align: baseline !important;
+        top: 0 !important;
+        /* 标题中不需要偏移 */
+    }
+
+    /* 标题中的内联代码 - 使用更高优先级的选择器 */
+    .markdown-preview-view h1 code:not(pre code),
+    .markdown-rendered h1 code:not(pre code),
+    .print h1 code:not(pre code),
+    h1 code:not(pre code) {
+        font-size: 16pt !important;
+        /* 与H1(24pt)协调的大小 */
+        font-weight: 600 !important;
+    }
+
+    .markdown-preview-view h2 code:not(pre code),
+    .markdown-rendered h2 code:not(pre code),
+    .print h2 code:not(pre code),
+    h2 code:not(pre code) {
+        font-size: 14pt !important;
+        /* 与H2协调的大小 */
+        font-weight: 600 !important;
+    }
+
+    .markdown-preview-view h3 code:not(pre code),
+    .markdown-rendered h3 code:not(pre code),
+    .print h3 code:not(pre code),
+    h3 code:not(pre code) {
+        font-size: 13pt !important;
+        /* 与H3协调的大小 */
+        font-weight: 500 !important;
+    }
+
+    .markdown-preview-view h4 code:not(pre code),
+    .markdown-rendered h4 code:not(pre code),
+    .print h4 code:not(pre code),
+    h4 code:not(pre code) {
+        font-size: 12pt !important;
+        font-weight: 500 !important;
+    }
+
+    .markdown-preview-view h5 code:not(pre code),
+    .markdown-rendered h5 code:not(pre code),
+    .print h5 code:not(pre code),
+    h5 code:not(pre code) {
+        font-size: 11pt !important;
+        font-weight: 500 !important;
+    }
+
+    .markdown-preview-view h6 code:not(pre code),
+    .markdown-rendered h6 code:not(pre code),
+    .print h6 code:not(pre code),
+    h6 code:not(pre code) {
+        font-size: 10pt !important;
+        font-weight: 500 !important;
+    }
+
+    /* 正文段落中的代码 */
+    .markdown-preview-view p code:not(pre code),
+    .markdown-rendered p code:not(pre code),
+    .print p code:not(pre code),
+    p code:not(pre code) {
+        font-size: 10pt !important;
     }
 
     /* 数学公式：$formula$ 或 $$formula$$ */
